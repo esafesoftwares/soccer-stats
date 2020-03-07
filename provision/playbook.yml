@@ -2,7 +2,7 @@
 - name: Download Application from Repo
   hosts: app_server
   become: yes
-  become_user: vagrant
+  become_user: root
   tasks:
     - get_url:
         force: yes
@@ -13,6 +13,8 @@
 
 - name: copy war to tomcat 
   hosts: app_server
+  become: yes
+  become_user: root
   copy: src=/tmp/{{ APP_NAME }}.war dest=/opt/apache-tomcat-8.5.42/webapps
   notify:
     - Restart tomcat
