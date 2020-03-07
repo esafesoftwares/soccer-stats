@@ -7,18 +7,19 @@
     - get_url:
         force: yes
         url: "{{ ARTIFACT_URL }}"
-        dest: "/tmp/{{ APP_NAME }}.war"
-    - stat: 
-        path: "/tmp/{{ APP_NAME }}.war"
+   #    dest: "/tmp/{{ APP_NAME }}.war"
+        dest: "/opt/apache-tomcat-8.5.42/webapps/{{ APP_NAME }}.war"
+ #   - stat: 
+ #       path: "/tmp/{{ APP_NAME }}.war"
 
-- name: copy war to tomcat 
-  hosts: app_server
-  become: yes
-  become_user: root
-  copy: src=/tmp/{{ APP_NAME }}.war dest=/opt/apache-tomcat-8.5.42/webapps
-  notify:
-    - Restart tomcat
+#- name: copy war to tomcat 
+ # hosts: app_server
+#  become: yes
+#  become_user: root
+#  copy: src=/tmp/{{ APP_NAME }}.war dest=/opt/apache-tomcat-8.5.42/webapps
+#  notify:
+#    - Restart tomcat
 
-- name: Delete remote war file
-  hosts: app_server
-  file: path=/tmp/{{ APP_NAME }}.war state=absent
+#- name: Delete remote war file
+#  hosts: app_server
+#  file: path=/tmp/{{ APP_NAME }}.war state=absent
