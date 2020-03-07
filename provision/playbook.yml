@@ -1,0 +1,24 @@
+---
+- name: Download Application from Repo
+  hosts: app_server
+  tasks:
+    - get_url:
+        force: yes
+        url: "{{ ARTIFACT_URL }}"
+        dest: "/tmp/{{ APP_NAME }}.war"
+    - stat: 
+        path: "/tmp/{{ APP_NAME }}.war"
+
+- name: copy war to tomcat 
+  hosts: app_server
+  copy: src=/tmp/{{ APP_NAME }}.war dest=/opt/tomcat/webapps/ROOT mode=0755 owner=tomcat group=tomcat
+  notify:
+    - Restart tomcat
+
+- name: Delete remote war file
+  hosts: app_server
+  file: path=/tmp/{{ APP_NAME }}.war state=absent
+
+  handlers:
+    - name: Restart tomcat
+      service: name=tomcat state=restarted
