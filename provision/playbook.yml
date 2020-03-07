@@ -1,6 +1,8 @@
 ---
 - name: Download Application from Repo
   hosts: app_server
+  become: yes
+  become_user: vagrant
   tasks:
     - get_url:
         force: yes
