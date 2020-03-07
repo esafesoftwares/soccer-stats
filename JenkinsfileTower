@@ -117,7 +117,7 @@ stage('Deploy') {
         ansibleTower(
                 towerServer: 'tower',
                 templateType: 'job',
-                jobTemplate: '9',
+                jobTemplate: '6',
                 importTowerLogs: true,
                 inventory: '2',
                 removeColor: false,
